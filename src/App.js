@@ -3,11 +3,12 @@ import './App.css';
 
 class App extends Component {
 
-
   state = {
     good: 0,
     neutral: 0,
-    bad: 0
+    bad: 0,
+    total: 0,
+    positivePercentage: 0
   }
 
   onFeedbackAction = (e) => {
@@ -28,7 +29,20 @@ class App extends Component {
       default:
         break;
     }
-    this.setState(state)
+    this.setState(state, () => {
+      this.countTotalFeedback();
+    });
+  }
+
+  countTotalFeedback = () => {
+    this.setState(
+      { total: (this.state.good + this.state.neutral + this.state.bad) },
+      this.countPositiveFeedbackPercentage
+    );
+  }
+
+  countPositiveFeedbackPercentage = () => {
+    this.setState({ positivePercentage: this.state.good / this.state.total * 100 });
   }
 
   render() {
@@ -44,6 +58,8 @@ class App extends Component {
         <p>Good: {this.state.good}</p>
         <p>Neutral: {this.state.neutral}</p>
         <p>Bad: {this.state.bad}</p>
+        <p>Total: {this.state.total}</p>
+        <p>Positive feedback: {this.state.positivePercentage.toFixed()}%</p>
       </div>
     )
   }
