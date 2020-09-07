@@ -8,7 +8,7 @@
 
 p {
   text-align: left;
-  width: 250px;
+  max-width: 250px;
   margin: 20px auto;
   font-size: 18px;
 }
